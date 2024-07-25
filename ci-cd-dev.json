@@ -1,0 +1,39 @@
+{
+  "name": "ci-cd-development",
+  "target": "branch",
+  "enforcement": "disabled",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": ["refs/heads/development"]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "pull_request"
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": true,
+        "required_status_checks": [
+          {
+            "context": "RunLinters",
+            "integration_id": 15368
+          },
+          {
+            "context": "RunTests",
+            "integration_id": 15368
+          }
+        ],
+        "do_not_enforce_on_create": true
+      }
+    }
+  ]
+}

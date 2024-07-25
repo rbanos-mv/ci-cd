@@ -1,0 +1,43 @@
+{
+  "name": "ci-cd-production",
+  "target": "branch",
+  "enforcement": "disabled",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": ["refs/heads/main"]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "pull_request"
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": true,
+        "required_status_checks": [
+          {
+            "context": "RunTests",
+            "integration_id": 15368
+          },
+          {
+            "context": "Deploy",
+            "integration_id": 15368
+          },
+          {
+            "context": "Deploy-Production",
+            "integration_id": 15368
+          }
+        ],
+        "do_not_enforce_on_create": true
+      }
+    }
+  ]
+}
